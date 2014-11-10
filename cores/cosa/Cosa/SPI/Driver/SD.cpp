@@ -248,7 +248,7 @@ SD::begin(SPI::Clock rate)
       m_type = TYPE_SD1;
       arg = (0x100 | CHECK_PATTERN);
       status = send(SEND_IF_COND, arg);
-      if (status.in_idle_state) {
+      if (status.as_uint8==0x01) {
 	R7 r7 = receive();
 	if (r7.check_pattern != CHECK_PATTERN) goto error;
 	m_type = TYPE_SD2;
